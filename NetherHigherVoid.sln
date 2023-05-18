@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33706.43
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetherHigherVoid", "src\NetherHigherVoid.csproj", "{68076626-5DCB-4DFB-8294-2C36434F1BFB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{68076626-5DCB-4DFB-8294-2C36434F1BFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68076626-5DCB-4DFB-8294-2C36434F1BFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68076626-5DCB-4DFB-8294-2C36434F1BFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68076626-5DCB-4DFB-8294-2C36434F1BFB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E2954F3A-248E-4CEE-96F4-BFB861D6EE74}
+	EndGlobalSection
+EndGlobal
