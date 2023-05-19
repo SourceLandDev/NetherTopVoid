@@ -3,12 +3,12 @@ using LiteLoader.NET;
 using MC;
 using System.Reflection;
 
-namespace NetherHigherVoid;
+namespace NetherTopVoid;
 [PluginMain(pluginName)]
-public class NetherHigherVoid : IPluginInitializer
+public class NetherTopVoid : IPluginInitializer
 {
-    internal const string pluginName = "NetherHigherVoid";
-    public string Introduction => "下界高处虚空";
+    internal const string pluginName = "NetherTopVoid";
+    public string Introduction => "下界顶部虚空";
     public Dictionary<string, string> MetaData => new();
     public Version Version => Assembly.GetExecutingAssembly().GetName().Version;
     internal static Dictionary<string, int> TickCount = new();
@@ -29,14 +29,14 @@ internal class PlayerTickHook : THookBase<PlayerTickHookCallback>
             player.BlockPos.Y > 128
         )
         {
-            NetherHigherVoid.TickCount[player.Xuid] = NetherHigherVoid.TickCount.TryGetValue(player.Xuid, out int value) ? value + 1 : 1;
-            Console.WriteLine(NetherHigherVoid.TickCount[player.Xuid]);
-            if (NetherHigherVoid.TickCount[player.Xuid] < 11)
+            NetherTopVoid.TickCount[player.Xuid] = NetherTopVoid.TickCount.TryGetValue(player.Xuid, out int value) ? value + 1 : 1;
+            Console.WriteLine(NetherTopVoid.TickCount[player.Xuid]);
+            if (NetherTopVoid.TickCount[player.Xuid] < 11)
             {
                 return;
             }
             player.HurtEntity(4, ActorDamageCause.Void);
         }
-        NetherHigherVoid.TickCount.Remove(player.Xuid);
+        NetherTopVoid.TickCount.Remove(player.Xuid);
     };
 }

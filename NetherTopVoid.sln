@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33706.43
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetherHigherVoid", "src\NetherHigherVoid.csproj", "{68076626-5DCB-4DFB-8294-2C36434F1BFB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetherTopVoid", "src\NetherTopVoid.csproj", "{68076626-5DCB-4DFB-8294-2C36434F1BFB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
