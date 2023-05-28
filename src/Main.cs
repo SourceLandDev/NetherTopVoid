@@ -26,11 +26,10 @@ internal class PlayerTickHook : THookBase<PlayerTickHookCallback>
         if (
             (int)player.GameMode is not 1 and not 6 &&
             player.DimensionId is 1 &&
-            player.BlockPos.Y > 128
+            player.BlockPos.Y > 127
         )
         {
             NetherTopVoid.TickCount[player.Xuid] = NetherTopVoid.TickCount.TryGetValue(player.Xuid, out int value) ? value + 1 : 1;
-            Console.WriteLine(NetherTopVoid.TickCount[player.Xuid]);
             if (NetherTopVoid.TickCount[player.Xuid] < 11)
             {
                 return;
