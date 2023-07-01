@@ -1,7 +1,7 @@
 ﻿using LiteLoader.Hook;
 using LiteLoader.NET;
+using LiteLoader.Schedule;
 using MC;
-using System.Reflection;
 
 namespace NetherTopVoid;
 [PluginMain(pluginName)]
@@ -10,32 +10,49 @@ public class NetherTopVoid : IPluginInitializer
     internal const string pluginName = "NetherTopVoid";
     public string Introduction => "下界顶部虚空";
     public Dictionary<string, string> MetaData => new();
-    public Version Version => Assembly.GetExecutingAssembly().GetName().Version;
     internal static Dictionary<string, int> TickCount = new();
     public void OnInitialize() => Thook.RegisterHook<PlayerTickHook, PlayerTickHookCallback>();
 }
 
-internal delegate void PlayerTickHookCallback(pointer<Player> player);
-[HookSymbol("?normalTick@Player@@UEAAXXZ")]
+internal delegate void PlayerTickHookCallback(pointer<ServerPlayer> player);
+[HookSymbol("?normalTick@ServerPlayer@@UEAAXXZ")]
 internal class PlayerTickHook : THookBase<PlayerTickHookCallback>
 {
     public override PlayerTickHookCallback Hook => (playerPointer) =>
     {
         Original(playerPointer);
         Player player = playerPointer.Dereference();
-        if (
-            (int)player.GameMode is not 1 and not 6 &&
-            player.DimensionId is 1 &&
-            player.BlockPos.Y > 127
-        )
+        Player.GameType gameMode = player.GameMode;
+        int dimensionId = player.DimensionId;
+        BlockPos blockPos = player.BlockPos;
+        string xuid = player.Xuid;
+        Task.Run(() =>
         {
-            NetherTopVoid.TickCount[player.Xuid] = NetherTopVoid.TickCount.TryGetValue(player.Xuid, out int value) ? value + 1 : 1;
-            if (NetherTopVoid.TickCount[player.Xuid] < 11)
+            if (
+                gameMode is not Player.GameType.Creative and not Player.GameType.Spectator &&
+                dimensionId is 1 &&
+                blockPos.Y > 127
+            )
             {
-                return;
+                NetherTopVoid.TickCount[xuid] = NetherTopVoid.TickCount.TryGetValue(xuid, out int value) ? value + 1 : 1;
+                if (NetherTopVoid.TickCount[xuid] < 11)
+                {
+                    return;
+                }
+                ScheduleAPI.NextTick(() =>
+                {
+                    foreach (Player player in Level.GetAllPlayers())
+                    {
+                        if (player.Xuid != xuid)
+                        {
+                            continue;
+                        }
+                        player.HurtEntity(4, ActorDamageCause.Void);
+                        break;
+                    }
+                });
             }
-            player.HurtEntity(4, ActorDamageCause.Void);
-        }
-        NetherTopVoid.TickCount.Remove(player.Xuid);
+            NetherTopVoid.TickCount.Remove(xuid);
+        });
     };
 }
