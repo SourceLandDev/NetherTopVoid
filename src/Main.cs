@@ -1,4 +1,5 @@
-﻿using LiteLoader.Hook;
+﻿using System.Collections.Concurrent;
+using LiteLoader.Hook;
 using LiteLoader.NET;
 using LiteLoader.Schedule;
 using MC;
@@ -10,7 +11,7 @@ public class NetherTopVoid : IPluginInitializer
     internal const string pluginName = "NetherTopVoid";
     public string Introduction => "下界顶部虚空";
     public Dictionary<string, string> MetaData => new();
-    internal static Dictionary<string, int> TickCount = new();
+    internal static ConcurrentDictionary<string, int> TickCount = new();
     public void OnInitialize() => Thook.RegisterHook<PlayerTickHook, PlayerTickHookCallback>();
 }
 
@@ -52,7 +53,7 @@ internal class PlayerTickHook : THookBase<PlayerTickHookCallback>
                     }
                 });
             }
-            NetherTopVoid.TickCount.Remove(xuid);
+            NetherTopVoid.TickCount.TryRemove(xuid, out _);
         });
     };
 }
